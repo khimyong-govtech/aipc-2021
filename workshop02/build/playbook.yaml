@@ -1,0 +1,22 @@
+- name: Setup website
+  hosts: all
+  tasks:
+  - name: install nginx
+    apt:
+      update_cache: yes
+      name: nginx
+      state: present
+  - name: Start server
+    systemd:
+      name: nginx
+      enabled: yes
+      state: started
+  - name: delete files in /var/www/html
+    shell: /bin/rm -rf /var/www/html/*
+  - name: copy 2 local files over to /var/www/html
+    copy:
+      src: "{{item}}"
+      dest: "/var/www/html/{{item}}"
+    loop:
+      - index.html
+      - index.css

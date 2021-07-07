@@ -1,0 +1,10 @@
+  - name: Unpack and install code-server
+    host: all
+    vars:
+      cs_version: "3.10.2"
+    tasks:
+    - name: download
+      get_url:
+        url: "https://github.com/codercom/code-server/releases/download/{{ cs_version }}/code-server{{ cs_version }}-linux-x86_64.tar.gz"
+        dest: /root/cs-{{ cs_version }}.tgz
+    command: chdir=/tmp wget -O - https://github.com/codercom/code-server/releases/download/{{ coder_version }}/code-server{{ coder_version }}-linux-x86_64.tar.gz | tar -xvz
